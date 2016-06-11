@@ -28,8 +28,6 @@ function($modal, $scope, ticketService, $log) {
 			"customer" : {},
 			"user" : {},
 			"module" : {},
-			"resolution" : {},
-			"comments" : [{}],
 			"createdBy" : 1000,
 			"updatedBy" : 1000
 		};
@@ -40,12 +38,13 @@ function($modal, $scope, ticketService, $log) {
 			size : 'md',
 			resolve : {
 				selectedTicket : function() {
-					return $scope.addTicket;
+					return angular.copy(ticket);
 				}
 			}
 		});
 
 		modalInstance.result.then(function(ticket) {
+			$scope.getTickets();
 			updatePaginationInfo();
 		}, function(ticket) {
 			$log.info('Modal dismissed at: ' + new Date());
@@ -65,7 +64,7 @@ function($modal, $scope, ticketService, $log) {
 			}
 		});
 		modalInstance.result.then(function(ticket) {
-
+			$scope.getTickets();
 		}, function(city) {
 			$log.info('Modal dismissed at: ' + new Date());
 		});
@@ -78,8 +77,10 @@ function(ticketService, selectedTicket,$state, $scope, $modalInstance, $http, $m
 	$scope.getModules = function() {
 		ticketService.getModules().then(function(response) {
 			$scope.modules = response;
+
+			$scope.modulesMap = [{}];
 			angular.forEach($scope.modules, function(value, key){
-$scope.modulesMap[value.id] = {};
+				$scope.modulesMap[value.id] = {};
 				$scope.modulesMap[value.id]= value;
 
 			});
@@ -88,11 +89,12 @@ $scope.modulesMap[value.id] = {};
 
 	$scope.getStatus = function() {
 		ticketService.getStatus().then(function(response) {
-			$scope.status = response;
+			$scope.statuss = response;
 
-			angular.forEach($scope.status, function(value){
+			$scope.statusMap = [{}];
+			angular.forEach($scope.statuss, function(value){
 
-$scope.statusMap[value.id] = {};
+				$scope.statusMap[value.id] = {};
 				$scope.statusMap[value.id] = value;
 			});
 		});
@@ -102,8 +104,9 @@ $scope.statusMap[value.id] = {};
 		ticketService.getResolution().then(function(response) {
 			$scope.resolutions = response;
 
+			$scope.resolutionsMap = [{}];
 			angular.forEach($scope.resolutions, function(value){
-$scope.resolutionsMap[value.id] = {};
+				$scope.resolutionsMap[value.id] = {};
 				$scope.resolutionsMap[value.id] = value;
 			});
 		});
@@ -113,6 +116,7 @@ $scope.resolutionsMap[value.id] = {};
 		ticketService.getCustomers().then(function(response) {
 			$scope.customers = response;
 
+			$scope.customersMap = [{}];
 			angular.forEach($scope.customers, function(value, key){
 				$scope.customersMap[value.id] = {};
 				$scope.customersMap[value.id] = value;
@@ -124,8 +128,9 @@ $scope.resolutionsMap[value.id] = {};
 		ticketService.getUsers().then(function(response) {
 			$scope.users = response;
 
+			$scope.usersMap = [{}];
 			angular.forEach($scope.users, function(value, key){
-$scope.usersMap[value.id] = {};
+				$scope.usersMap[value.id] = {};
 				$scope.usersMap[value.id]= value;
 
 				});
@@ -153,10 +158,22 @@ $scope.usersMap[value.id] = {};
   		 delete ticket.tempComment;
 		};
 
-		ticket.module = modulesMap[ticket.module.id];
-		ticket.user = usersMap[ticket.user.id];
-		ticket.customer = customersMap[ticket.customer.id];
-		ticket.resolution = resolutionsMap[ticket.resolution.id];
+		if(isCreate == 'true' || isCreate =='false'){
+			if(angular.isDefined(ticket.module.id))
+				ticket.module = $scope.modulesMap[ticket.module.id];
+
+			if(angular.isDefined(ticket.status.id))
+				ticket.status = $scope.statusMap[ticket.status.id];
+
+			if(angular.isDefined(ticket.user.id))
+				ticket.user = $scope.usersMap[ticket.user.id];
+
+			if(angular.isDefined(ticket.customer.id))
+				ticket.customer = $scope.customersMap[ticket.customer.id];
+
+			if(angular.isDefined(ticket.resolution))
+				ticket.resolution = $scope.resolutionsMap[ticket.resolution.id];
+	  }
 
 		ticketService.createTicket(ticket).then(function(data, response, headers) {
 			console.log("checking the data " + data);

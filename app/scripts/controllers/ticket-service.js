@@ -72,6 +72,16 @@ function($q, $http) {
 		return deferred.promise;
 	};
 
+	var createTicket = function(ticket) {
+		var deferred = $q.defer();
+		$http.post('http://localhost:9090/api/v1/tickets', ticket).success(function(response) {
+			deferred.resolve(response);
+		}).error(function(response) {
+			deferred.reject(response);
+		});
+		return deferred.promise;
+	};
+
 	return {
 		getModules : getModules,
 		getStatus : getStatus,
@@ -79,6 +89,7 @@ function($q, $http) {
 		getCustomers : getCustomers,
 		getUsers : getUsers,
 		getTickets : getTickets,
-		getComments : getComments
+		getComments : getComments,
+		createTicket : createTicket
 	};
 }]);

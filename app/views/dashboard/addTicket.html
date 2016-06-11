@@ -1,0 +1,78 @@
+<div novalidate>
+	<div class="modal-header">
+		<h3 class="modal-title">Create Ticket</h3>
+	</div>
+	<div class="modal-body">
+		<!--<form name="ticketDetails"> -->
+		<form name="ticketDetails" ng-submit="ticketDetails.$valid && updateOrCreate(ticket)">
+			<div class="row row-sm">
+				<div class="col-lg-12">
+					<div class="md-form-group">
+						<div class="form-group has-success has-error">
+							<label class="control-label" for="title">Ticket Title</label>
+							<input type="text" ng-required="true" ng-model="ticket.title" value="{{ticket.title}}" class="form-control" id="title">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row row-sm">
+				<div class="col-lg-12">
+					<div class="md-form-group">
+						<div class="form-group has-success has-error">
+							<label class="control-label" for="desc">Description</label>
+							<textarea type="text" ng-required="true" 
+							ng-minlength="10" ng-maxlength="240" ng-model="ticket.description" value="{{ticket.description}}" 
+							class="form-control" id="desc"></textarea>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row row-sm">
+				<div class="col-lg-12">
+					<div class="md-form-group">
+						<div class="has-success has-error">
+							<label class="control-label" for="module">Module</label>
+
+							<select	class="form-control" ng-model="ticket.module" ng-required
+							ng-options="module.id as module.name for module in modules" id="module"></select>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row row-sm">
+				<div class="col-lg-12">
+					<div class="md-form-group">
+						<div class="has-success has-error">
+							<label class="control-label" for="user">Assignee</label>
+
+							<select	class="form-control" ng-model="ticket.user" ng-required
+							ng-options="user.id as user.name for user in users" id="user"></select>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row row-sm">
+				<div class="col-lg-12">
+					<div class="md-form-group">
+						<div class="has-success has-error">
+							<label class="control-label" for="customer">Customer</label>
+
+							<select class="form-control" ng-model="ticket.customer" ng-required
+							ng-options="customer.id as customer.name for customer in customers" id="customer"></select>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<br/>
+			<button type="button" class="btn btn-primary" ng-disabled="ticketDetails.$pristine|| ticketDetails.$invalid" ng-click="ticketDetails.$valid && updateOrCreate(ticket)">
+				Create
+			</button>
+			<button type="button" class="btn btn-primary"  ng-click="cancel(ticket)">
+				Cancel
+			</button>
+		</form>
+	</div>
+
+</div>

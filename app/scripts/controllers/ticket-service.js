@@ -4,7 +4,7 @@ function($q, $http) {
 
 	var getModules = function() {
 		var deferred = $q.defer();
-		$http.get('http://localhost:9090/api/v1/' + 'modules').success(function(response) {
+		$http.get('https://ticketing-system-api.herokuapp.com/api/v1/' + 'modules').success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);
@@ -14,7 +14,7 @@ function($q, $http) {
 
 	var getStatus = function() {
 		var deferred = $q.defer();
-		$http.get('http://localhost:9090/api/v1/status').success(function(response) {
+		$http.get('https://ticketing-system-api.herokuapp.com/api/v1/status').success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);
@@ -24,7 +24,7 @@ function($q, $http) {
 
 	var getResolution = function() {
 		var deferred = $q.defer();
-		$http.get('http://localhost:9090/api/v1/resolutions').success(function(response) {
+		$http.get('https://ticketing-system-api.herokuapp.com/api/v1/resolutions').success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);
@@ -34,7 +34,7 @@ function($q, $http) {
 
 	var getCustomers = function() {
 		var deferred = $q.defer();
-		$http.get('http://localhost:9090/api/v1/customers').success(function(response) {
+		$http.get('https://ticketing-system-api.herokuapp.com/api/v1/customers').success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);
@@ -44,7 +44,7 @@ function($q, $http) {
 
 	var getUsers = function() {
 		var deferred = $q.defer();
-		$http.get('http://localhost:9090/api/v1/users').success(function(response) {
+		$http.get('https://ticketing-system-api.herokuapp.com/api/v1/users').success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);
@@ -54,7 +54,7 @@ function($q, $http) {
 
 	var getTickets = function() {
 		var deferred = $q.defer();
-		$http.get('http://localhost:9090/api/v1/tickets').success(function(response) {
+		$http.get('https://ticketing-system-api.herokuapp.com/api/v1/tickets').success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);
@@ -64,7 +64,7 @@ function($q, $http) {
 
 	var getComments = function() {
 		var deferred = $q.defer();
-		$http.get('http://localhost:9090/api/v1/comments').success(function(response) {
+		$http.get('https://ticketing-system-api.herokuapp.com/api/v1/comments').success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);
@@ -74,7 +74,7 @@ function($q, $http) {
 
 	var createTicket = function(ticket) {
 		var deferred = $q.defer();
-		$http.post('http://localhost:9090/api/v1/tickets', ticket).success(function(response) {
+		$http.post('https://ticketing-system-api.herokuapp.com/api/v1/tickets', ticket).success(function(response) {
 			deferred.resolve(response);
 		}).error(function(response) {
 			deferred.reject(response);

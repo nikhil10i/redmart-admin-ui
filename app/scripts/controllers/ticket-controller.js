@@ -15,6 +15,7 @@ function($modal, $scope, ticketService, $log) {
 	$scope.getTickets = function() {
 		ticketService.getTickets().then(function(response) {
 			$scope.tickets = response;
+			$scope.displayedTickets = $scope.tickets;
 		});
 	};
 
@@ -55,6 +56,24 @@ function($modal, $scope, ticketService, $log) {
 	$scope.updateTicket = function(ticket) {
 		var modalInstance = $modal.open({
 			templateUrl : 'views/dashboard/updateTicket.html',
+			controller : 'addTicketInstanceController',
+			size : 'md',
+			resolve : {
+				selectedTicket : function() {
+					return angular.copy(ticket);
+				}
+			}
+		});
+		modalInstance.result.then(function(ticket) {
+			$scope.getTickets();
+		}, function(city) {
+			$log.info('Modal dismissed at: ' + new Date());
+		});
+	};
+
+	$scope.viewTicket = function(ticket) {
+		var modalInstance = $modal.open({
+			templateUrl : 'views/dashboard/viewTicket.html',
 			controller : 'addTicketInstanceController',
 			size : 'md',
 			resolve : {
@@ -147,16 +166,7 @@ function(ticketService, selectedTicket,$state, $scope, $modalInstance, $http, $m
 
 	$scope.updateOrCreate = function(ticket, isCreate) {
 
-		if(isCreate != 'true' && angular.isDefined(ticket.tempComment)){
-			var tempComment = {
-			     "ticketId": ticket.id,
-			     "createdBy": 1000,
-			     "text": ticket.tempComment
-		   };
 
-			 ticket.comments.push(tempComment);
-  		 delete ticket.tempComment;
-		};
 
 		if(isCreate == 'true' || isCreate =='false'){
 			if(angular.isDefined(ticket.module.id))
@@ -175,6 +185,17 @@ function(ticketService, selectedTicket,$state, $scope, $modalInstance, $http, $m
 				ticket.resolution = $scope.resolutionsMap[ticket.resolution.id];
 	  }
 
+		if(isCreate != 'true' && angular.isDefined(ticket.tempComment)){
+			var tempComment = {
+			     "ticketId": ticket.id,
+			     "createdBy": 1000,
+			     "text": ticket.tempComment
+		   };
+
+			 ticket.comments.push(tempComment);
+  		 delete ticket.tempComment;
+		};
+
 		ticketService.createTicket(ticket).then(function(data, response, headers) {
 			console.log("checking the data " + data);
 			$modalInstance.close(data);
@@ -189,3 +210,20 @@ function(ticketService, selectedTicket,$state, $scope, $modalInstance, $http, $m
 	};
 
 }]);
+
+angular.module('sbAdminApp').directive('searchWatchModel',function(){
+  return {
+    require:'^stTable',
+    scope:{
+      searchWatchModel:'='
+    },
+    link:function(scope, ele, attr, ctrl){
+      var table=ctrl;
+
+      scope.$watch('searchWatchModel',function(val){
+        ctrl.search(val);
+      });
+
+    }
+  };
+});

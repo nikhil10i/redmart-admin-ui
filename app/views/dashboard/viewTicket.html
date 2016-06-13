@@ -30,7 +30,8 @@
 					<div class="md-form-group">
 						<div class="form-group has-success ">
 							<label class="control-label" for="desc">Description</label>
-							<textarea type="text" ng-required="true" ng-model="ticket.description" value="{{ticket.description}}"
+							<textarea type="text" ng-disabled="true"
+							ng-minlength="10" ng-maxlength="240" ng-model="ticket.description" value="{{ticket.description}}"
 							class="form-control" id="desc"></textarea>
 						</div>
 					</div>
@@ -43,7 +44,7 @@
 						<div class="has-success ">
 							<label class="control-label" for="module">Module</label>
 
-							<select	class="form-control" ng-model="ticket.module.id" ng-required
+							<select	class="form-control" ng-model="ticket.module.id" ng-disabled="true"
 							ng-options="module.id as module.name for module in modules" id="module"></select>
 						</div>
 					</div>
@@ -55,7 +56,7 @@
 						<div class="has-success ">
 							<label class="control-label" for="user">Assignee</label>
 
-							<select	class="form-control" ng-model="ticket.user.id" ng-required
+							<select	class="form-control" ng-model="ticket.user.id" ng-disabled="true"
 							ng-options="user.id as user.name for user in users" id="user"></select>
 						</div>
 					</div>
@@ -67,7 +68,7 @@
 						<div class="has-success ">
 							<label class="control-label" for="customer">Customer</label>
 
-							<select class="form-control" ng-model="ticket.customer.id" ng-required
+							<select class="form-control" ng-model="ticket.customer.id" ng-disabled="true"
 							ng-options="customer.id as customer.name for customer in customers" id="customer"></select>
 						</div>
 					</div>
@@ -80,7 +81,7 @@
 						<div class="has-success ">
 							<label class="control-label" for="status">Status</label>
 
-							<select	class="form-control" ng-model="ticket.status.id" ng-required
+							<select	class="form-control" ng-model="ticket.status.id" ng-disabled="true"
 							ng-options="status.id as status.name for status in statuss" id="status"></select>
 						</div>
 					</div>
@@ -93,8 +94,7 @@
 						<div class="has-success ">
 							<label class="control-label" for="resolution">Resolution</label>
 
-							<select	class="form-control" ng-model="ticket.resolution.id" ng-required
-							ng-options="resolution.id as resolution.name for resolution in resolutions" id="resolution"></select>
+							<select	class="form-control" ng-disabled="true" ng-model="ticket.resolution.id" ng-options="resolution.id as resolution.name for resolution in resolutions" id="resolution"></select>
 						</div>
 					</div>
 				</div>
@@ -114,31 +114,17 @@
 					</div>
 				</div>
 			</div>
-
-			<div class="row row-sm">
-				<div class="col-lg-12">
-					<div class="md-form-group">
-						<div class="form-group has-success ">
-							<label class="control-label" for="tempComment">Comments</label>
-							<textarea type="text" ng-model="ticket.tempComment" value="{{ticket.tempComment}}"
-							class="form-control" id="tempComment"></textarea>
-						</div>
-					</div>
-				</div>
-			</div>
-
-
 			<br/>
 
 		</form>
 	</div>
 	<div class="modal-footer">
 
-	<button type="button" class="btn btn-primary" ng-disabled="ticketDetails.$pristine|| ticketDetails.$invalid" ng-click="ticketDetails.$valid && updateOrCreate(ticket, 'false')">
+<!--	<button type="button" class="btn btn-primary" ng-disabled="ticketDetails.$pristine|| ticketDetails.$invalid" ng-click="ticketDetails.$valid && updateOrCreate(ticket, 'false')">
 		Create
-	</button>
+	</button> -->
 	<button type="button" class="btn btn-primary"  ng-click="cancel(ticket)">
-		Cancel
+		Ok
 	</button>
 </div>
 </div>

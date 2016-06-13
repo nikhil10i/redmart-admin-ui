@@ -3,6 +3,15 @@ body {
     padding-bottom: 20px;
 }
 
+.modal-body {
+    max-height: calc(100vh - 170px);
+    overflow-y: auto;
+}
+
+.modal-footer {
+  text-align: left;
+}
+
 /* Everything but the jumbotron gets side spacing for mobile first views */
 .header,
 .marketing,

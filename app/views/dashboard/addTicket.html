@@ -3,6 +3,7 @@
 		<h3 class="modal-title">Create Ticket</h3>
 	</div>
 	<div class="modal-body">
+		<p>Please enter values for all the fields</p>
 		<!--<form name="ticketDetails"> -->
 		<form name="ticketDetails" ng-submit="ticketDetails.$valid && updateOrCreate(ticket)">
 			<div class="row row-sm">
@@ -20,8 +21,7 @@
 					<div class="md-form-group">
 						<div class="form-group has-success ">
 							<label class="control-label" for="desc">Description</label>
-							<textarea type="text" ng-required="true"
-							ng-minlength="10" ng-maxlength="240" ng-model="ticket.description" value="{{ticket.description}}"
+							<textarea type="text" ng-required="true" ng-model="ticket.description" value="{{ticket.description}}"
 							class="form-control" id="desc"></textarea>
 						</div>
 					</div>
@@ -34,7 +34,7 @@
 						<div class="has-success ">
 							<label class="control-label" for="module">Module</label>
 
-							<select	class="form-control" ng-model="ticket.module.id" ng-required
+							<select	class="form-control" ng-model="ticket.module.id" required
 							ng-options="module.id as module.name for module in modules" id="module"></select>
 						</div>
 					</div>
@@ -46,7 +46,7 @@
 						<div class="has-success ">
 							<label class="control-label" for="user">Assignee</label>
 
-							<select	class="form-control" ng-model="ticket.user.id" ng-required
+							<select	class="form-control" ng-model="ticket.user.id" required
 							ng-options="user.id as user.name for user in users" id="user"></select>
 						</div>
 					</div>
@@ -58,7 +58,7 @@
 						<div class="has-success ">
 							<label class="control-label" for="customer">Customer</label>
 
-							<select class="form-control" ng-model="ticket.customer.id" ng-required
+							<select class="form-control" ng-model="ticket.customer.id" required
 							ng-options="customer.id as customer.name for customer in customers" id="customer"></select>
 						</div>
 					</div>
@@ -71,7 +71,7 @@
 						<div class="has-success ">
 							<label class="control-label" for="status">Status</label>
 
-							<select	class="form-control" ng-model="ticket.status.id" ng-required
+							<select	class="form-control" ng-model="ticket.status.id" required
 							ng-options="status.id as status.name for status in statuss" id="status"></select>
 						</div>
 					</div>
@@ -79,13 +79,17 @@
 			</div>
 
 			<br/>
-			<button type="button" class="btn btn-primary" ng-disabled="ticketDetails.$pristine|| ticketDetails.$invalid" ng-click="ticketDetails.$valid && updateOrCreate(ticket, 'true')">
-				Create
-			</button>
-			<button type="button" class="btn btn-primary"  ng-click="cancel(ticket)">
-				Cancel
-			</button>
-		</form>
+
 	</div>
+			</form>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" ng-disabled="ticketDetails.$pristine|| ticketDetails.$invalid" ng-click="ticketDetails.$valid && updateOrCreate(ticket, 'true')">
+					Create
+				</button>
+				<button type="button" class="btn btn-primary"  ng-click="cancel(ticket)">
+					Cancel
+				</button>			</div>
+
 
 </div>

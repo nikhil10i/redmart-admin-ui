@@ -82,6 +82,16 @@ function($q, $http) {
 		return deferred.promise;
 	};
 
+	var updateTicket = function(ticket) {
+		var deferred = $q.defer();
+		$http.put('https://ticketing-system-api.herokuapp.com/api/v1/tickets', ticket).success(function(response) {
+			deferred.resolve(response);
+		}).error(function(response) {
+			deferred.reject(response);
+		});
+		return deferred.promise;
+	};
+
 	return {
 		getModules : getModules,
 		getStatus : getStatus,
@@ -90,6 +100,7 @@ function($q, $http) {
 		getUsers : getUsers,
 		getTickets : getTickets,
 		getComments : getComments,
-		createTicket : createTicket
+		createTicket : createTicket,
+		updateTicket : updateTicket
 	};
 }]);

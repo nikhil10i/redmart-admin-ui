@@ -196,12 +196,23 @@ function(ticketService, selectedTicket,$state, $scope, $modalInstance, $http, $m
   		 delete ticket.tempComment;
 		};
 
-		ticketService.createTicket(ticket).then(function(data, response, headers) {
-			console.log("checking the data " + data);
-			$modalInstance.close(data);
-		}, function(data, response) {
+		if(isCreate == 'true'){
+			ticketService.createTicket(ticket).then(function(data, response, headers) {
+				console.log("checking the data " + data);
+				$modalInstance.close(data);
+			}, function(data, response) {
 
-		});
+			});
+
+		} else if (isCreate == 'false'){
+			ticketService.updateTicket(ticket).then(function(data, response, headers) {
+				console.log("checking the data " + data);
+				$modalInstance.close(data);
+			}, function(data, response) {
+
+			});
+
+		}
 
 	};
 
